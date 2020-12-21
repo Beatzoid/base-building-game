@@ -28,6 +28,10 @@ public class WorldController : MonoBehaviour
                 // are empty right now
                 tile_go.AddComponent<SpriteRenderer>();
 
+                // Ensures that the tile is always above the background 
+                // and visible in the camera view
+                tile_go.GetComponent<SpriteRenderer>().sortingLayerName = "TileUI";
+
                 // Link the function
                 tile_data.RegisterTileTypeChangedCallback((tile) => { OnTileTypeChanged(tile, tile_go); });
             }
@@ -35,8 +39,6 @@ public class WorldController : MonoBehaviour
 
         world.RandomizeTiles();
     }
-
-    float randomizeTileTimer = 2f;
 
     // Update is called once per frame
     void Update()

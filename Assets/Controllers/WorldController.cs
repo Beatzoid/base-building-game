@@ -42,14 +42,6 @@ public class WorldController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        randomizeTileTimer -= Time.deltaTime;
-
-        if (randomizeTileTimer < 0)
-        {
-            world.RandomizeTiles();
-            randomizeTileTimer = 2f;
-        }
-
 
     }
 

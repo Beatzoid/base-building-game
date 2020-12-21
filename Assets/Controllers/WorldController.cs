@@ -28,6 +28,9 @@ public class WorldController : MonoBehaviour
                 // Add a Sprite Renderer but don't set a sprite because all the tiles
                 // are empty right now
                 tile_go.AddComponent<SpriteRenderer>();
+
+                // Link the function
+                tile_data.RegisterTileTypeChangedCallback((tile) => { OnTileTypeChanged(tile, tile_go); });
             }
         }
 

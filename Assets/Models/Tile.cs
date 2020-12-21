@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Tile
 {
     public enum TileType { Empty, Floor };
 
     TileType type = TileType.Empty;
+
+    Action<Tile> cbTileTypeChanged;
 
     public TileType Type
     {
@@ -15,9 +18,16 @@ public class Tile
         }
         set
         {
+            TileType oldType = type;
             type = value;
-            // Call the callback and let 
-            // things know we have changed
+
+            /* If there is a function and
+            there is actually a change in the type
+            call all functions registered
+            to the TileTypeChanged callback
+            */
+            if (cbTileTypeChanged != null && oldType != type)
+                cbTileTypeChanged(this);
         }
     }
 
@@ -50,4 +60,13 @@ public class Tile
         this.y = y;
     }
 
+    public void RegisterTileTypeChangedCallback(Action<Tile> callback)
+    {
+        cbTileTypeChanged += callback;
+    }
+
+    public void UnregisterTileTypeChangedCallback(Action<Tile> callback)
+    {
+        cbTileTypeChanged -= callback;
+    }
 }

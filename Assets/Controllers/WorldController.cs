@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WorldController : MonoBehaviour
 {
@@ -23,6 +21,7 @@ public class WorldController : MonoBehaviour
                 GameObject tile_go = new GameObject();
 
                 tile_go.name = "Tile_" + x + "_" + y;
+                tile_go.transform.SetParent(this.transform, true);
                 tile_go.transform.position = new Vector3(tile_data.X, tile_data.Y, 0);
 
                 // Add a Sprite Renderer but don't set a sprite because all the tiles

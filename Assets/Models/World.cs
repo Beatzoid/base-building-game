@@ -1,32 +1,25 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class World
 {
+    // This holds our tile data
     Tile[,] tiles;
 
-    int width;
-    public int Width
-    {
-        get
-        {
-            return width;
-        }
-    }
+    // The tile width of the world.
+    public int Width { get; protected set; }
 
-    int height;
-    public int Height
-    {
-        get
-        {
-            return height;
-        }
-    }
+    // The tile height of the world
+    public int Height { get; protected set; }
 
+    /// <summary>
+	/// Initializes a new instance of the <see cref="World"/> class.
+	/// </summary>
+	/// <param name="width">Width in tiles.</param>
+	/// <param name="height">Height in tiles.</param>
     public World(int width = 100, int height = 100)
     {
-        this.width = width;
-        this.height = height;
+        this.Width = width;
+        this.Height = height;
 
         tiles = new Tile[width, height];
 
@@ -41,13 +34,16 @@ public class World
         Debug.Log("World created with " + (width * height) + " tiles");
     }
 
+    /// <summary>
+	/// A function for testing out the system
+	/// </summary>
     public void RandomizeTiles()
     {
         Debug.Log("Randomize Tiles");
 
-        for (int x = 0; x < width; x++)
+        for (int x = 0; x < Width; x++)
         {
-            for (int y = 0; y < height; y++)
+            for (int y = 0; y < Height; y++)
             {
                 if (Random.Range(0, 2) == 0)
                 {
@@ -61,19 +57,20 @@ public class World
         }
     }
 
+    /// <summary>
+    /// Gets the tile data at x and y.
+    /// </summary>
+    /// <returns>The <see cref="Tile"/> that is at the specified location.</returns>
+    /// <param name="x">The x coordinate.</param>
+    /// <param name="y">The y coordinate.</param>
     public Tile GetTileAt(int x, int y)
     {
-        if (x > width || x < 0 || y > height || y < 0)
+        if (x > Width || x < 0 || y > Height || y < 0)
         {
             Debug.LogError("Tile (" + x + ", " + y + ") is out of range");
             return null;
         }
 
         return tiles[x, y];
-    }
-
-    public int GetWidth()
-    {
-        return width;
     }
 }

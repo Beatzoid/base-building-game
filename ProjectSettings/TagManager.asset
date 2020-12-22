@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: TileUI
+  - name: Tiles
     uniqueID: 4160918581
+    locked: 0
+  - name: Cursor Circle
+    uniqueID: 4062429063
     locked: 0

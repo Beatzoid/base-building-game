@@ -2,22 +2,29 @@
 
 public class WorldController : MonoBehaviour
 {
+    public static WorldController Instance { get; protected set; }
+
     public Sprite floorSprite;
 
-    World world;
+    public World World { get; protected set; }
 
     // Start is called before the first frame update
     void Start()
     {
+        if (Instance != null)
+            Debug.LogError("There should never be two world controllers");
+
+        Instance = this;
+
         // Create a world with empty tiles
-        world = new World();
+        World = new World();
 
         // Create a GameObject for each of our tiles, so they show on the screen
-        for (int x = 0; x < world.Width; x++)
+        for (int x = 0; x < World.Width; x++)
         {
-            for (int y = 0; y < world.Height; y++)
+            for (int y = 0; y < World.Height; y++)
             {
-                Tile tile_data = world.GetTileAt(x, y);
+                Tile tile_data = World.GetTileAt(x, y);
                 GameObject tile_go = new GameObject();
 
                 tile_go.name = "Tile_" + x + "_" + y;
@@ -30,14 +37,14 @@ public class WorldController : MonoBehaviour
 
                 // Ensures that the tile is always above the background 
                 // and visible in the camera view
-                tile_go.GetComponent<SpriteRenderer>().sortingLayerName = "TileUI";
+                tile_go.GetComponent<SpriteRenderer>().sortingLayerName = "Tiles";
 
                 // Link the function
                 tile_data.RegisterTileTypeChangedCallback((tile) => { OnTileTypeChanged(tile, tile_go); });
             }
         }
 
-        world.RandomizeTiles();
+        World.RandomizeTiles();
     }
 
     // Update is called once per frame

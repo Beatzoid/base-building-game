@@ -68,4 +68,17 @@ public class WorldController : MonoBehaviour
             Debug.LogError("[OnTileTypeChanged] Unrecognized tile type");
         }
     }
+
+    /// <summary>
+    /// Get the tile at the Unity-space coordinates
+    /// </summary>
+    /// <returns>The tile at the specified world coordinate</returns>
+    /// <param name="cord">The Unity-space coordinates</param>
+    public Tile GetTileAtWorldCord(Vector3 cord)
+    {
+        int x = Mathf.FloorToInt(cord.x);
+        int y = Mathf.FloorToInt(cord.y);
+
+        return WorldController.Instance.World.GetTileAt(x, y);
+    }
 }
